@@ -13,11 +13,6 @@ jobs:
         id: random_gif
         run: |
           echo ::set-output name=get_url::$(curl https://api.giphy.com/v1/gifs/random?api_key=0UTRbFtkMxAplrohufYco5IY74U8hOes&tag=$TAG)
-
-
-      - name: debug
-        run: |
-          echo "${{fromJson(steps.random_gif.outputs.get_url).data.image_original_url}}"
           
       - name: Add a comment to PR
         env:
@@ -30,4 +25,4 @@ jobs:
             $URL \
             -H "Content-Type: application/json" \
             -H "Authorization: token $GITHUB_TOKEN" \
-            --data '{ "body": "![GIF]${{fromJson(steps.random_gif.outputs.get_url).data.image_original_url}}" }'
+            --data '{ "body": "![GIF]${{fromJson(steps.random_gif.outputs.get_url).data.image_url}}" }'
