@@ -7,15 +7,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Add comment to PR
-        if: contains(github.event.comment.body, 'special string')
-        env:
-          URL: ${{ github.event.pull_request.comments_url }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v1
+      - name: Add commit comment
         run: |
-          curl \
-            -X POST \
-            $URL \
+          jq -nc '{"body": "test comment"}' | \
+          curl -sL  -X POST -d @- \
             -H "Content-Type: application/json" \
-            -H "Authorization: token $GITHUB_TOKEN" \
-            --data '{ "body": "blah blah" }'
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/comments"
