@@ -12,7 +12,7 @@ jobs:
           TAG: "fail"
         id: random_gif
         run: |
-          ::set-output name=get_url::$(curl https://api.giphy.com/v1/gifs/random?api_key=0UTRbFtkMxAplrohufYco5IY74U8hOes&tag=$TAG | jq '.data.image_original_url')
+          echo "::set-output name=get_url::$(curl https://api.giphy.com/v1/gifs/random?api_key=0UTRbFtkMxAplrohufYco5IY74U8hOes&tag=$TAG | jq '.data.image_original_url')"
         
       - name: Add a comment to PR
         env:
