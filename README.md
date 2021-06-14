@@ -1,4 +1,4 @@
 # random-gif-action
 
 test
-1
+12
