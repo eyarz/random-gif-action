@@ -13,7 +13,6 @@ jobs:
         id: random_gif
         run: |
           echo ::set-output name=get_url::$(curl https://api.giphy.com/v1/gifs/random?api_key=0UTRbFtkMxAplrohufYco5IY74U8hOes&tag=$TAG | jq '.data.image_original_url')
-          echo "${{ steps.random_gif.outputs.get_url }}"
           
       - name: Add a comment to PR
         env:
