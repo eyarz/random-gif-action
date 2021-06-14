@@ -30,4 +30,4 @@ jobs:
             $URL \
             -H "Content-Type: application/json" \
             -H "Authorization: token $GITHUB_TOKEN" \
-            --data '{ "body": "![GIF]${{ steps.random_gif.outputs.get_url.data.image_original_url }}" }'
+            --data '{ "body": "![GIF]${{ steps.random_gif.outputs.get_url }}.data.image_original_url" }'
