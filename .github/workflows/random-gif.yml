@@ -7,14 +7,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Add comment to PR
+      - name: Get a random gif
+        env:
+          TAG: "fail"
+        id: random_gif
+        run: |
+          ::set-output name=get_url::$(curl https://api.giphy.com/v1/gifs/random?api_key=0UTRbFtkMxAplrohufYco5IY74U8hOes&tag=$TAG | jq '.data.image_original_url')
+        
+      - name: Add a comment to PR
         env:
           URL: ${{ github.event.pull_request.comments_url }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: "fail"
         run: |
           curl \
             -X POST \
             $URL \
             -H "Content-Type: application/json" \
             -H "Authorization: token $GITHUB_TOKEN" \
-            --data '{ "body": "![GIF](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)" }'
+            --data '{ "body": "![GIF]${{ steps.xyz.random_gif.get_url }}" }'
