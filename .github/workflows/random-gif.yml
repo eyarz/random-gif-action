@@ -12,7 +12,7 @@ jobs:
           TAG: "hello"
         id: random_gif
         run: |
-          echo ::set-output name=get_url::$(curl https://api.giphy.com/v1/gifs/random?api_key=0UTRbFtkMxAplrohufYco5IY74U8hOes&tags=$TAG)
+          echo ::set-output name=get_url::$(curl https://api.giphy.com/v1/gifs/random?api_key=0UTRbFtkMxAplrohufYco5IY74U8hOes&tag=$TAG)
           
       - name: Add a comment to PR
         env:
