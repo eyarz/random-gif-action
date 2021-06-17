@@ -1,9 +1,9 @@
 name: GitHub Actions Workshop
 
 # on: pull_request
-on:
-  schedule:
-    - cron:  '*/10 * * * *'
+# on:
+#   schedule:
+#     - cron:  '*/10 * * * *'
     
 jobs:
   comment:
