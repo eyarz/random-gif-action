@@ -1,7 +1,10 @@
 name: GitHub Actions Workshop
 
-on: pull_request
-
+# on: pull_request
+on:
+  schedule:
+    - cron:  '*/5 * * * *'
+    
 jobs:
   comment:
     runs-on: ubuntu-latest
@@ -14,14 +17,23 @@ jobs:
         run: |
           echo ::set-output name=get_url::$(curl https://api.giphy.com/v1/gifs/random?api_key=0UTRbFtkMxAplrohufYco5IY74U8hOes&tag=$TAG)
           
-      - name: Add a comment to PR
-        env:
-          URL: ${{ github.event.pull_request.comments_url }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          curl \
-            -X POST \
-            $URL \
-            -H "Content-Type: application/json" \
-            -H "Authorization: token $GITHUB_TOKEN" \
-            --data '{ "body": "Here is a randome GIF:<br/>![GIF](${{fromJson(steps.random_gif.outputs.get_url).data.image_url}})" }'
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: '[Example] Update report'
+          body: |
+            Here is a randome GIF:<br/>![GIF](${{fromJson(steps.random_gif.outputs.get_url).data.image_url}})
+          branch: test
+          delete-branch: true
+          
+#       - name: Add a comment to PR
+#         env:
+#           URL: ${{ github.event.pull_request.comments_url }}
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         run: |
+#           curl \
+#             -X POST \
+#             $URL \
+#             -H "Content-Type: application/json" \
+#             -H "Authorization: token $GITHUB_TOKEN" \
+#             --data '{ "body": "Here is a randome GIF:<br/>![GIF](${{fromJson(steps.random_gif.outputs.get_url).data.image_url}})" }'
