@@ -16,15 +16,23 @@ jobs:
         id: random_gif
         run: |
           echo ::set-output name=get_url::$(curl https://api.giphy.com/v1/gifs/random?api_key=0UTRbFtkMxAplrohufYco5IY74U8hOes&tag=$TAG)
-          
+      
+      - uses: actions/checkout@v2
+      
       - name: Create Pull Request
+        id: cpr
         uses: peter-evans/create-pull-request@v3
         with:
           title: '[Example] Update report'
           body: |
-            Here is a randome GIF:<br/>![GIF](${{fromJson(steps.random_gif.outputs.get_url).data.image_url}})
-          branch: test
+            'Here is a randome GIF:<br/>![GIF](${{fromJson(steps.random_gif.outputs.get_url).data.image_url}})'
+          branch: 'test'
           delete-branch: true
+      
+      - name: Check outputs
+        run: |
+          echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+          echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
           
 #       - name: Add a comment to PR
 #         env:
