@@ -1,9 +1,9 @@
 name: GitHub Actions Workshop
 
-# on: pull_request
-on:
-  schedule:
-    - cron:  '*/10 * * * *'
+on: pull_request
+# on:
+#   schedule:
+#     - cron:  '*/10 * * * *'
     
 jobs:
   comment:
@@ -18,27 +18,15 @@ jobs:
           echo ::set-output name=get_url::$(curl https://api.giphy.com/v1/gifs/random?api_key=0UTRbFtkMxAplrohufYco5IY74U8hOes&tag=$TAG)
       
       - uses: actions/checkout@v2
-      
-      - name: Create commits
-        run: |
-          date +%s > report.txt
-          git commit -a -m "Modify tracked file during workflow"
           
-      - name: Create Pull Request
-        id: cpr
-        uses: peter-evans/create-pull-request@v3
+      - name: Create new issue
+        uses: imjohnbo/issue-bot@v3
         with:
-          title: '[Example] Update report'
+          title: Hello, world
           body: |
-            'Here is a randome GIF:<br/>![GIF](${{fromJson(steps.random_gif.outputs.get_url).data.image_url}})'
-          branch: 'test'
-          branch-suffix: timestamp
-      
-      - name: Check outputs
-        run: |
-          echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
-          echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
-          
+            Here is a randome GIF:<br/>![GIF](${{fromJson(steps.random_gif.outputs.get_url).data.image_url}})
+          pinned: true
+
 #       - name: Add a comment to PR
 #         env:
 #           URL: ${{ github.event.pull_request.comments_url }}
