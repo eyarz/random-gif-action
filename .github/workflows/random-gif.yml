@@ -20,12 +20,13 @@ jobs:
       - uses: actions/checkout@v2
           
       - name: Create new issue
-        uses: imjohnbo/issue-bot@v3
+        uses: JasonEtco/create-an-issue@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BODY: Here is a randome GIF:<br/>![GIF](${{fromJson(steps.random_gif.outputs.get_url).data.image_url}})
         with:
-          title: Hello, world
-          body: |
-            Here is a randome GIF:<br/>![GIF](${{fromJson(steps.random_gif.outputs.get_url).data.image_url}})
-          pinned: true
+          title: ${{ env.GITHUB_WORKFLOW }}
+          filename: .github/ISSUE_TEMPLATE/custom.md
 
 #       - name: Add a comment to PR
 #         env:
