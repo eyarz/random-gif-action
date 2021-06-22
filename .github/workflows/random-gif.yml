@@ -25,8 +25,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BODY: Here is a randome GIF:<br/>![GIF](${{fromJson(steps.random_gif.outputs.get_url).data.image_url}})
         with:
-          title: ${{ env.GITHUB_WORKFLOW }}
           filename: .github/ISSUE_TEMPLATE/custom.md
+          update_existing: true
 
 #       - name: Add a comment to PR
 #         env:
