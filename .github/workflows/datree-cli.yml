@@ -1,4 +1,4 @@
-name: CI with Datree's policy check
+name: CI with Datree's policy check 1
 
 on:
   push:
@@ -7,9 +7,13 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  k8s-policy-check:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2
-    - run: curl https://get.datree.io | /bin/bash
-    - run: datree test ~/.datree/k8s-demo.yaml
+      - name: Run Datree's policy check 2
+        env:
+          DATREE_TOKEN: ${{ secrets.DATREE_TOKEN }} 
+      - uses: actions/checkout@v2
+      - run: curl https://get.datree.io | /bin/bash
+      - run: datree test ~/.datree/k8s-demo.yaml
