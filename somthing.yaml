@@ -4,7 +4,7 @@ policies:
     isDefault: true
     rules:
       - identifier: CUSTOM_ENSURE_REQUIRED_ANNOTATIONS_AGENT_INJECT
-        messageOnFailure: 'test'
+        messageOnFailure: '-'
 
 customRules:
   - identifier: CUSTOM_ENSURE_REQUIRED_ANNOTATIONS_AGENT_INJECT
