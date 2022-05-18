@@ -1,14 +1,10 @@
-name: Datree YAML Validation
-
+name: Datree WorkFlow
 on:
   pull_request:
     types:
       - opened
     branches: 
       - main
-    paths:
-      - '**.yaml'
-      - '**.yml'
 
 jobs:
   YamlValidation:
@@ -38,4 +34,4 @@ jobs:
         if: steps.changed-files.outputs.any_changed == 'true'
         env:
           DATREE_TOKEN: ${{ secrets.DATREE_TOKEN }}
-        run: datree test --validate-yaml ${{ steps.changed-files.outputs.all_changed_files }}
+        run: datree test validate-yaml ${{ steps.changed-files.outputs.all_changed_files }}
