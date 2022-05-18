@@ -1,0 +1,19 @@
+apiVersion: v1
+policies:
+  - name: Default
+    isDefault: true
+    rules:
+      - identifier: CUSTOM_ENSURE_REQUIRED_ANNOTATIONS_AGENT_INJECT
+        messageOnFailure: ''
+
+customRules:
+  - identifier: CUSTOM_ENSURE_REQUIRED_ANNOTATIONS_AGENT_INJECT
+    name: Ensure each resource has required vault annotations [CUSTOM RULE]
+    defaultMessageOnFailure: Verify you have the following annotations `vault.hashicorp.com/agent-inject`
+    schema:
+      properties:
+        metadata:
+          properties:
+            annotations:
+              required:
+                - vault.hashicorp.com/agent-inject
