@@ -5,10 +5,10 @@ on:
     types:
       - opened
     branches: 
-      - $default-branch
-    paths:
-      - '**.yaml'
-      - '**.yml'
+      - main
+#     paths:
+#       - '**.yaml'
+#       - '**.yml'
 
 jobs:
   YamlValidation:
