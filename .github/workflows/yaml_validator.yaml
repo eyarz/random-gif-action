@@ -4,7 +4,6 @@ on:
   pull_request:
     branches: [$default-branch]
 
-  workflow_dispatch:
 jobs:
   YamlValidation:
     runs-on: ubuntu-latest
