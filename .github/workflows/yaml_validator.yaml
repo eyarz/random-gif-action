@@ -2,7 +2,13 @@ name: Datree YAML Validation
 
 on:
   pull_request:
-    branches: [$default-branch]
+    types:
+      - opened
+    branches: 
+      - $default-branch
+    paths:
+      - '**.yaml'
+      - '**.yml'
 
 jobs:
   YamlValidation:
