@@ -6,9 +6,9 @@ on:
       - opened
     branches: 
       - main
-#     paths:
-#       - '**.yaml'
-#       - '**.yml'
+    paths:
+      - '**.yaml'
+      - '**.yml'
 
 jobs:
   YamlValidation:
