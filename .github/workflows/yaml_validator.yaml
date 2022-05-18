@@ -8,7 +8,7 @@ on:
   pull_request:
     types:
       - opened
-    branches:  [ $default-branch ]
+    branches:  main
 
 jobs:
   YamlValidation:
