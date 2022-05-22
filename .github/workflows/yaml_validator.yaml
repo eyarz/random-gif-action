@@ -43,8 +43,8 @@ jobs:
 # | For more info visit: https://github.com/datreeio/datree                           |
 # |===================================================================================|
 
-      - name: Datree validate K8s manifests
-        if: steps.changed-files.outputs.any_changed == 'true'
-        uses: datreeio/action-datree@main
-        with:
-          path: ${{ steps.changed-files.outputs.all_changed_files }}
+#       - name: Datree validate K8s manifests
+#         if: steps.changed-files.outputs.any_changed == 'true'
+#         uses: datreeio/action-datree@main
+#         with:
+#           path: ${{ steps.changed-files.outputs.all_changed_files }}
