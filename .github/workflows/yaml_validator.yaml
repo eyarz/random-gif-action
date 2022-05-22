@@ -1,14 +1,10 @@
-name: Datree WorkFlow
-on:
-#   push:
-#     paths:
-#       - '**.yaml'
-#       - '**.yml'
-      
-  pull_request:
-    types:
-      - opened
+name: Datree Workflow
 
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+  workflow_dispatch:
 jobs:
   YamlValidation:
     runs-on: ubuntu-latest
@@ -16,8 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 2
+          fetch-depth: 0
 
       - name: Get changed files
         id: changed-files
@@ -26,7 +21,6 @@ jobs:
           files: |
             *.yaml
             *.yml
-
       - name: List all changed files
         run: echo ${{ steps.changed-files.outputs.all_changed_files }}
 
@@ -38,5 +32,4 @@ jobs:
         if: steps.changed-files.outputs.any_changed == 'true'
         env:
           DATREE_TOKEN: ${{ secrets.DATREE_TOKEN }}
-        run: ls
-#         run: datree test validate-yaml ${{ steps.changed-files.outputs.all_changed_files }}
+        run: datree validate-yaml ${{ steps.changed-files.outputs.all_changed_files }}
