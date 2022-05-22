@@ -4,10 +4,11 @@ on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
 
-  workflow_dispatch:
 jobs:
   YamlValidation:
     runs-on: ubuntu-latest
+    env:
+      DATREE_TOKEN: ${{ secrets.DATREE_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -24,12 +25,21 @@ jobs:
       - name: List all changed files
         run: echo ${{ steps.changed-files.outputs.all_changed_files }}
 
-      - name: Install datree.io
+      - name: Install Datree's CLI
         if: steps.changed-files.outputs.any_changed == 'true'
         run: curl https://get.datree.io | /bin/bash -s
 
-      - name: Datree Validate yaml
+      - name: Datree validate YAML files
         if: steps.changed-files.outputs.any_changed == 'true'
-        env:
-          DATREE_TOKEN: ${{ secrets.DATREE_TOKEN }}
         run: datree validate-yaml ${{ steps.changed-files.outputs.all_changed_files }}
+        
+# |======================== Datree Policy Check ==================================|
+# | Enable this step if you would like to preform K8s policy check on your files. |
+# | For more info visit: https://github.com/datreeio/datree                       |
+# |===============================================================================|
+
+#       - name: Datree validate K8s manifests
+#         if: steps.changed-files.outputs.any_changed == 'true'
+#         uses: datreeio/action-datree@main
+#         with:
+#           path: ${{ steps.changed-files.outputs.all_changed_files }}
