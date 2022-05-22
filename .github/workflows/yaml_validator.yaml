@@ -1,7 +1,7 @@
-# |======================== Datree Policy Check ==================================|
-# | This workflow will verify that every committed yaml files are valid.          |
-# | For more info visit: https://github.com/marketplace/datree                    |
-# |===============================================================================|
+# |=========================== Datree Policy Check ===================================|
+# | This workflow will verify that every committed yaml files are valid.              |
+# | For more info visit: https://github.com/marketplace/datree                        |
+# |===================================================================================|
 
 name: Datree Workflow
 
@@ -38,10 +38,10 @@ jobs:
         if: steps.changed-files.outputs.any_changed == 'true'
         run: datree validate-yaml ${{ steps.changed-files.outputs.all_changed_files }}
         
-# |======================== Datree Policy Check ==================================|
-# | Enable this step if you would like to preform K8s policy check on your files. |
-# | For more info visit: https://github.com/datreeio/datree                       |
-# |===============================================================================|
+# |=========================== Datree Policy Check ===================================|
+# | Enable this step if you would like to preform K8s policy check on your manifests. |
+# | For more info visit: https://github.com/datreeio/datree                           |
+# |===================================================================================|
 
       - name: Datree validate K8s manifests
         if: steps.changed-files.outputs.any_changed == 'true'
