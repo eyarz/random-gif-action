@@ -24,3 +24,7 @@ jobs:
         
       - name: Run kubectl-validate
         run: kubectl-validate $MANIFESTS_PATH --version 1.23
+        
+      - name: Report status
+        if: failure()
+        run: exit 1
