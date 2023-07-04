@@ -27,5 +27,5 @@ jobs:
         run: kubectl-validate $MANIFESTS_PATH --version 1.23
         
       - name: Fail job on validation failure
-        if: ${{ steps.kubectl-validate.conclusion == 'failure' }}
+        if: ${{ steps.kubectl-validate.conclusion != 'success' }}
         run: exit 1
