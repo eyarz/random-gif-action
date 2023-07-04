@@ -22,5 +22,6 @@ jobs:
       - name: run kubectl-validate
         run: |
           echo "$PATH"
+          echo "$GOBIN"
           which "kubectl-validate"
           /usr/local/go/bin/kubectl-validate "$MANIFESTS_PATH" --version 1.23
