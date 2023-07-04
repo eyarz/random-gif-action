@@ -5,7 +5,7 @@ on:
       - main
   
 env:
-  MANIFESTS_PATH: '*.yaml'
+  MANIFESTS_PATH: 'something.yaml'
   
 jobs:
   validate:
@@ -23,6 +23,4 @@ jobs:
         run: go install sigs.k8s.io/kubectl-validate@latest
         
       - name: Run kubectl-validate
-        run: |
-          kubectl-validate somthing.yaml --version 1.23
-          echo "$MANIFESTS_PATH"
+        run: kubectl-validate $MANIFESTS_PATH --version 1.23
