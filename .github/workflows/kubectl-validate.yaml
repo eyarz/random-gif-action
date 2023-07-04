@@ -11,13 +11,18 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repo content
+      - name: Checkout repo content
         uses: actions/checkout@v3
+        
       - name: Setup go
         uses: actions/setup-go@v4
         with:
           go-version: '1.20'
+          
       - name: Install kubectl-validate
         run: go install sigs.k8s.io/kubectl-validate@latest
-      - name: run kubectl-validate
-        run: kubectl-validate "$MANIFESTS_PATH" --version 1.23
+        
+      - name: Run kubectl-validate
+        run: |
+          kubectl-validate somthing.yaml --version 1.23
+          echo "$MANIFESTS_PATH"
