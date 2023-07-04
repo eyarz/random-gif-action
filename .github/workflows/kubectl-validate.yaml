@@ -5,7 +5,7 @@ on:
       - main
   
 env:
-  MANIFESTS_PATH: 'something.yaml'
+  MANIFESTS_PATH: '*thing.yaml'
   
 jobs:
   k8sManifestsValidation:
