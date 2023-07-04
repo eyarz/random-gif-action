@@ -8,7 +8,7 @@ env:
   MANIFESTS_PATH: 'something.yaml'
   
 jobs:
-  validate:
+  k8sManifestsValidation:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo content
