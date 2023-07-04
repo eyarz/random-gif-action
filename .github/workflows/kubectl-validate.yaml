@@ -22,9 +22,10 @@ jobs:
       - name: Install kubectl-validate
         run: go install sigs.k8s.io/kubectl-validate@latest
         
-      - name: Run kubectl-validate
+      - id: kubectl-validate
+        name: Run kubectl-validate
         run: kubectl-validate $MANIFESTS_PATH --version 1.23
         
-      - name: Report status
-        if: failure()
+      - name: Fail job on validation failure
+        if: ${{ steps.kubectl-validate.conclusion != 'success' }}
         run: exit 1
