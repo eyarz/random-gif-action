@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  MANIFESTS_PATH: 'k8s-manifests/*.yaml'
+  MANIFESTS_PATH: '*.yaml'
 
 jobs:
     validate:
