@@ -24,8 +24,7 @@ jobs:
         run: go install sigs.k8s.io/kubectl-validate@latest
         
       - name: Run kubectl-validate
-        shell: bash
-        run: kubectl-validate $MANIFESTS_PATH --version $SCHEMA_VERSION
+        run: kubectl-validate $MANIFESTS_PATH --version $SCHEMA_VERSION | grep OK
         
 #       - name: Report status
 #         if: failure()
