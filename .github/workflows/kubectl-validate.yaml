@@ -5,7 +5,7 @@ on:
       - main
   
 env:
-  MANIFESTS_PATH: '*thing.yaml'
+  MANIFESTS_PATH: 'k8s-manifest/*.yaml'
   SCHEMA_VERSION: '1.23'
   
 jobs:
@@ -26,6 +26,3 @@ jobs:
       - name: Run kubectl-validate
         run: kubectl-validate $MANIFESTS_PATH --version $SCHEMA_VERSION | grep OK
         
-#       - name: Report status
-#         if: failure()
-#         run: exit 1
