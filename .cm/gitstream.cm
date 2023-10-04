@@ -1,23 +1,30 @@
 # -*- mode: yaml -*-
-
 manifest:
   version: 1.0
-
 automations:
-  estimated_time_to_review:
-    if:
-      - true
+  enforce_pr_title: 
+    if:       
+      - {{ pr.title | match(regex=titlePolicy.titleRegex) | nope }}
     run:
-      - action: add-label@v1
-        args:
-          label: "{{ calc.etr }} min review"
-          color: {{ colors.red if (calc.etr >= 20) else ( colors.yellow if (calc.etr >= 5) else colors.green ) }}
+      - action: request-changes@v1
+        args: 
+          comment: | 
+            All PRs must be titled according to our semantic naming policy: `<type>(<scope>): <short summary>`
 
-calc:
-  etr: {{ branch | estimatedReviewTime }}
+            Type must be one of the following:
 
+             * build
+             * ci 
+             * docs
+             * feature
+             * fix
 
-colors:
-  red: 'b60205'
-  yellow: 'fbca04'
-  green: '0e8a16'
+            Scope must be one of the following:
+
+             * common
+             * core
+             * elements
+             * forms
+             * http 
+titlePolicy:
+    titleRegex: r/\b(build|ci|docs|feature|fix|)\b\s*\((common|core|elements|forms|http)\):\s*\w+.*
